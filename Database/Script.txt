@@ -1,0 +1,25 @@
+-- Create Role table
+CREATE TABLE [dbo].[Roles]
+(
+    [Id] INT IDENTITY(1,1) PRIMARY KEY,
+    [Name] NVARCHAR(50) NOT NULL UNIQUE,
+    [Description] NVARCHAR(255) NULL
+);
+
+-- Create User table
+CREATE TABLE [dbo].[Users]
+(
+    [Id] INT IDENTITY(1,1) PRIMARY KEY,
+    [Username] NVARCHAR(100) NOT NULL UNIQUE,
+    [Email] NVARCHAR(100) NOT NULL UNIQUE,
+    [PasswordHash] VARBINARY(MAX) NOT NULL,
+    [PasswordSalt] VARBINARY(MAX) NOT NULL
+);
+
+-- Create UserRoles join table (many-to-many)
+CREATE TABLE [dbo].[UserRoles]
+(
+    [UserId] INT NOT NULL,
+    [RoleId] INT NOT NULL,
+    CONSTRAINT PK_UserRoles PRIMARY KEY (UserId, RoleId)
+);
